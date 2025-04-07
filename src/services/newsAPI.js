@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "deebd35b1bb94d59935f55d62eb2c674"; 
+const API_KEY = process.env.REACT_APP_NEWS_API_KEY; // Make sure to set this in your .env file 
 const BASE_URL = "https://newsapi.org/v2/";
 
 export const fetchCryptoNews = async (page = 1, pageSize = 6) => {
