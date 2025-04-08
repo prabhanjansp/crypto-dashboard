@@ -15,7 +15,6 @@
 // import { Link as RouterLink } from "react-router-dom";
 // import { Button } from "@mui/material";
 
-
 // // Lazy load pages
 // const Home = lazy(() => import("./pages/Home"));
 // const CoinDetail = lazy(() => import("./pages/CoinDetail"));
@@ -37,7 +36,7 @@
 //   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
 //   return (
-  
+
 //       <ThemeProvider theme={theme}>
 //         <CssBaseline />
 //         <Router>
@@ -84,13 +83,18 @@
 //           </Suspense>
 //         </Router>
 //       </ThemeProvider>
- 
+
 //   );
 // }
 
 // export default App;
 import React, { useMemo, useState, lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link as RouterLink,
+} from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -106,7 +110,7 @@ import {
   ListItemIcon,
   Divider,
   Box,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "../theme";
@@ -114,14 +118,18 @@ import ThemeToggle from "./components/ThemeToggle";
 import NewsFeed from "./components/NewsFeed";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
+import BookIcon from "@mui/icons-material/Book";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
+import Watchlist from "./pages/Watchlist";
 
 const Home = lazy(() => import("./pages/Home"));
 const CoinDetail = lazy(() => import("./pages/CoinDetail"));
 
 function App() {
-  const [mode, setMode] = useState(() => localStorage.getItem("themeMode") || "light");
+  const [mode, setMode] = useState(
+    () => localStorage.getItem("themeMode") || "light"
+  );
   const [drawerOpen, setDrawerOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
 
@@ -139,49 +147,63 @@ function App() {
 
   const drawer = (
     <Box
-    sx={{ width: 250 }}
-    role="presentation"
-    onClick={handleDrawerToggle}
-    onKeyDown={handleDrawerToggle}
-  >
-    <List>
-      <ListItem
-        button
-        component={RouterLink}
-        to="/"
-        sx={{
-          color: theme.palette.text.primary,
-          textDecoration: "none",
-        }}
-      >
-        <ListItemIcon sx={{ color: theme.palette.text.primary }}>
-          <HomeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Home" />
-      </ListItem>
+      sx={{ width: 250 }}
+      role="presentation"
+      onClick={handleDrawerToggle}
+      onKeyDown={handleDrawerToggle}
+    >
+      <List>
+        <ListItem
+          button
+          component={RouterLink}
+          to="/"
+          sx={{
+            color: theme.palette.text.primary,
+            textDecoration: "none",
+          }}
+        >
+          <ListItemIcon sx={{ color: theme.palette.text.primary }}>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
 
-      <ListItem
-        button
-        component={RouterLink}
-        to="/news"
-        sx={{
-          color: theme.palette.text.primary,
-          textDecoration: "none",
-        }}
-      >
-        <ListItemIcon sx={{ color: theme.palette.text.primary }}>
-          <NewspaperIcon />
-        </ListItemIcon>
-        <ListItemText primary="News" />
-      </ListItem>
-    </List>
+        <ListItem
+          button
+          component={RouterLink}
+          to="/news"
+          sx={{
+            color: theme.palette.text.primary,
+            textDecoration: "none",
+          }}
+        >
+          <ListItemIcon sx={{ color: theme.palette.text.primary }}>
+            <NewspaperIcon />
+          </ListItemIcon>
+          <ListItemText primary="News" />
+        </ListItem>
+        <ListItem
+          button
+          component={RouterLink}
+          to="/watchlist"
+          sx={{
+            color: theme.palette.text.primary,
+            textDecoration: "none",
+          }}
+        >
+          <ListItemIcon sx={{ color: theme.palette.text.primary }}>
+            <BookIcon />
+          </ListItemIcon>
+          <ListItemText primary="Watchlist" />
+        </ListItem>
+      </List>
 
-    <Divider />
+      <Divider />
 
-    <Box sx={{ p: 2 }}>
-      <ThemeToggle mode={mode} toggleMode={toggleMode} />
+      <Box sx={{ p: 2 }}>
+        <ThemeToggle mode={mode} toggleMode={toggleMode} />
+      </Box>
     </Box>
-  </Box>
   );
 
   return (
@@ -193,7 +215,8 @@ function App() {
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              background: "linear-gradient(to right, #0f2027, #203a43, #2c5364)"
+              background:
+                "linear-gradient(to right, #0f2027, #203a43, #2c5364)",
             }}
           >
             <Box display="flex" alignItems="center">
@@ -218,16 +241,35 @@ function App() {
                 <Typography
                   component={RouterLink}
                   to="/"
-                  sx={{ color: "#fff", textDecoration: "none", fontWeight: 500 }}
+                  sx={{
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontWeight: 500,
+                  }}
                 >
                   Home
                 </Typography>
                 <Typography
                   component={RouterLink}
                   to="/news"
-                  sx={{ color: "#fff", textDecoration: "none", fontWeight: 500 }}
+                  sx={{
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontWeight: 500,
+                  }}
                 >
                   News
+                </Typography>
+                <Typography
+                  component={RouterLink}
+                  to="/watchlist"
+                  sx={{
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontWeight: 500,
+                  }}
+                >
+                  Watchlist
                 </Typography>
                 <ThemeToggle mode={mode} toggleMode={toggleMode} />
               </Box>
@@ -242,18 +284,24 @@ function App() {
           PaperProps={{
             sx: {
               backgroundColor: theme.palette.background.default,
-              color: theme.palette.text.primary
-            }
+              color: theme.palette.text.primary,
+            },
           }}
         >
           {drawer}
         </Drawer>
 
-        <Suspense fallback={<CircularProgress sx={{ display: "block", mx: "auto", my: 4 }} />}>
+        <Suspense
+          fallback={
+            <CircularProgress sx={{ display: "block", mx: "auto", my: 4 }} />
+          }
+        >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/coin/:id" element={<CoinDetail />} />
             <Route path="/coins/:id" element={<CoinDetail />} />
+            <Route path="/watchlist" element={<Watchlist />} />
+
             <Route path="/news" element={<NewsFeed />} />
           </Routes>
         </Suspense>
