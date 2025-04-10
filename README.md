@@ -3,6 +3,9 @@
 CryptoVerse is a modern, responsive, and dynamic cryptocurrency dashboard built with **React + Vite**. It provides users with real-time data, market insights, news, and visualization tools to track cryptocurrency trends efficiently.
 
 ---
+## 🔗 Live Demo
+
+You can check out the live version of the project [here](https://whimsical-lolly-fa9245.netlify.app/).
 
 ## 🚀 Features
 
